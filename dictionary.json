@@ -56,12 +56,12 @@
 	},
 	"div": {
 		"word": "000000st0000000000011010",
-		"arguments": 3,
+		"arguments": 2,
 		"immediate": false 
 	},
 	"divu": {
 		"word": "000000st0000000000011011",
-		"arguments": 3,
+		"arguments": 2,
 		"immediate": false 
 	},
 	"mult": {
