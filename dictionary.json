@@ -1,0 +1,137 @@
+{
+	"add": {
+		"word": "000000std00000100000",
+		"arguments": 3,
+		"immediate": false
+	},
+	"addu": {
+		"word": "000000std00000100001",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"and": {
+		"word": "000000std00000100100",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"nor": {
+		"word": "000000std00000100111",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"or": {
+		"word": "000000std00000100101",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"slt": {
+		"word": "000000std00000101010",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"sltu": {
+		"word": "000000std00000101011",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"sub": {
+		"word": "000000std00000100010",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"subu": {
+		"word": "000000std00000100011",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"xor": {
+		"word": "000000std00000100110",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"mul": {
+		"word": "011100std00000000010",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"div": {
+		"word": "000000st0000000000011010",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"divu": {
+		"word": "000000st0000000000011011",
+		"arguments": 3,
+		"immediate": false 
+	},
+	"mult": {
+		"word": "000000st0000000000011000",
+		"arguments": 2,
+		"immediate": false
+	},
+	"multu": {
+		"word": "000000st0000000000011001",
+		"arguments": 2,
+		"immediate": false
+	},
+	"sll": {
+		"word": "00000000000tda000000",
+		"arguments": 3,
+		"immediate": 3
+	},
+	"sra": {
+		"word": "00000000000tda000011",
+		"arguments": 3,
+		"immediate": 3
+	},
+	"srl": {
+		"word": "00000000000tda000010",
+		"arguments": 3,
+		"immediate": 3
+	},
+	"nop": {
+		"word": "00000000000000000000000000000000",
+		"arguments": 0,
+		"immediate": false
+	},
+	"syscall": {
+		"word": "00000000000000000000000000001100",
+		"arguments": false,
+		"immediate": 0
+	},
+	"addi": {
+		"word": "001000st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"addiu": {
+		"word": "001001st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"andi": {
+		"word": "001100st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"ori": {
+		"word": "001101st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"slti": {
+		"word": "001010st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"sltiu": {
+		"word": "001011st*",
+		"arguments": 2,
+		"immediate": true
+	},
+	"xori": {
+		"word": "001110st*",
+		"arguments": 2,
+		"immediate": true
+	}
+}
