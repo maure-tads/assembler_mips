@@ -66,6 +66,11 @@ vector<string> split(string s, char delimiter) {
     vector<string> out;
     int k = 0;
     string sbs = "";
+    int position = s.find("  ");
+    while(position >= 0) {
+        s.replace(position, 2, " ");
+        position = s.find("  ");
+    }
     while (s.size() > 0) {
         int del = s.find(delimiter);
         sbs = s.substr(0, del);
@@ -81,6 +86,7 @@ void read() {
     char delimiter = 32;  // ASCII CODE FOR SPACE
     while (getline(cin, line)) {
         instructions = split(line, delimiter);
+        if(instructions[0].back() == ':') continue;
         parse(instructions);
         cout << "\n";
     }
