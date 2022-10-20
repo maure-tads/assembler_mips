@@ -24,8 +24,11 @@ class Assembler:
 	def toHex(self, word):
 		i = 0
 		while i < len(word):
-			print(word[i:i+4])
+			s = int(word[i:i+4], 2)
 			i += 4
+			res = f'{s:x}'
+			print(res, end="")
+		print()
 
 
 	def process_line(self, line):
@@ -71,4 +74,3 @@ class Assembler:
 a = Assembler()
 a.load_instructions_set('dictionary.json')
 a.parse('test.asm')
-#a.print_instructions_set()
