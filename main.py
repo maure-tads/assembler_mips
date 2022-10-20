@@ -12,9 +12,9 @@ class Assembler:
 	def get_values_of(self, c):
 		return c['arguments'], c['word'], c['immediate']
 	
-	def convert_parameters_values(self, line):
-		for i in range(1, len(line)):
-			
+	def convert_parameters_values(self, size, line):
+		for i in range(1, size):
+
 			
 	
 	def process_line(self, line):
