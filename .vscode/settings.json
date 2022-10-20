@@ -32,6 +32,19 @@
     "*.tcc": "cpp",
     "iosfwd": "cpp",
     "ostream": "cpp",
-    "istream": "cpp"
+    "istream": "cpp",
+    "bitset": "cpp",
+    "string": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+    "initializer_list": "cpp",
+    "regex": "cpp",
+    "valarray": "cpp",
+    "iostream": "cpp"
   }
 }
