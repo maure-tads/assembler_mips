@@ -3,7 +3,6 @@
 using namespace std;
 
 map<string, string> instruction_set;
-vector<string> parameters = {"d", "s", "t"};
 
 void init() {
     ifstream myfile("dictionary.txt");
