@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,22 +11,15 @@ int main(int argc, char* argv[]) {
         args.push_back(string(argv[i]));
     }
 
-
-    bool run_python = args.find("--python") > -1;
-    bool change_dictionary = args.find("-d") + 1;
-    string command = "";
-
-    if(run_python) {
-        command = "./src/cpp/main";
+    string input_file = args[1], command = "python ./src/python/main.py < " + input_file + " > out";
+    vector<string>::iterator run_cpp =  find(args.begin(), args.end(), "--cpp");
+    if(run_cpp != args.end()){
+        
+        system(string("g++ ./src/cpp/main.cpp -o main_assembler").c_str());
+        system(string("main_assembler <" + input_file + " > out").c_str());
     } else {
-        command = "python ./src/python/main.py";
+        system(command.c_str());
     }
-
-    if(change_dictionary) {
-        command += " " + change_dictionary;
-    }
-
-    cout << command << endl;    
 
     return 0;
 }

@@ -1,6 +1,5 @@
 import json
 import re
-import sys
 
 class Assembler:
 
@@ -73,5 +72,5 @@ class Assembler:
 
 
 a = Assembler()
-a.load_instructions_set('dictionary.json')
-a.parse('test.asm')
+a.load_instructions_set('./src/resources/dictionary.json')
+a.parse('./tests/test.asm')

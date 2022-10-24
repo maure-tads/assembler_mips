@@ -5,7 +5,7 @@ using namespace std;
 map<string, string> instruction_set;
 
 void init() {
-    ifstream myfile("dictionary.txt");
+    ifstream myfile("./src/resources/dictionary.txt");
     string inst, bitset;
     int size;
     for (int i = 0; i < 27; i++) {
