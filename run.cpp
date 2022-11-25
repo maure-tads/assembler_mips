@@ -11,21 +11,18 @@ int main(int argc, char* argv[]) {
         args.push_back(string(argv[i]));
     }
 
-    string input_file = args[1], command, out_path = "out.txt";
+    string input_file = args[1], command, out_path = "";
     
     if(argc == 3)
-        out_path = args[2];
+        out_path = " > "+ args[2];
 
-    command = "python ./src/python/main.py " + input_file + " > " + out_path;
-    cout << command << endl;
-
+    command = "python ./src/python/main.py " + input_file + out_path;
      
     try {
         system(command.c_str());
     } catch(exception &e) {
         cout << "Exception " << e.what() << "\n";
-    }
-        cout << "Código de máquina gerado com sucesso!\n";
+    } 
 
     return 0;
 }

@@ -4,8 +4,8 @@ import sys
 
 class Assembler:
 
-	def set_rotulos(self):
-		self.rotulos = {
+	def set_reg_names(self):
+		self.reg_names = {
 			"zero": 0,
 			"at": 1,
 			"v0": 2,
@@ -45,18 +45,27 @@ class Assembler:
 		
 	def load_program(self, program_path):
 		self.program = re.sub(' +', ' ', open(program_path, 'r').read().strip()).split('\n')
+		self.program = [line for line in self.program if line.strip() != '']
 
 	def get_values_of(self, c):
 		return c['arguments'], c['word'], c['immediate']
 
+
+	def t_complement(self,n):
+		b = ""
+		for i in range(16):
+			b += str(n >> 15-i & 1)
+		return b
+
 	def convert_number_to_binary(self, n_str, size):
-		return ("{0:0" + str(size) + "b}").format(int(n_str))
+		n = int(n_str)
+		return ("{0:0" + str(size) + "b}").format(n) if n >= 0 else self.t_complement(n)
 	
 	def convert_parameters_values(self, line, size, bits):
 		for i in range(size):
 			x = re.search("[^$]+", line[i]).group(0)
-			if(x in self.rotulos):
-				x = self.rotulos[x]
+			if(x in self.reg_names):
+				x = self.reg_names[x]
 			line[i] = self.convert_number_to_binary(x, bits)
 		return line
 			
@@ -100,7 +109,7 @@ class Assembler:
 
 		
 		for i in range(0, len(symbol)):
-			symbol[i] = re.search('[^, ]+', symbol[i]).group(0)
+			symbol[i] = re.search('^-?[^, ]+', symbol[i]).group(0)
 			x = re.findall('^#', symbol[i])
 			if x:
 				symbol[:i]
@@ -133,7 +142,7 @@ class Assembler:
 
 	def parse(self, program_path):
 		self.load_program(program_path)
-		self.set_rotulos()
+		self.set_reg_names()
 		for line in self.program:
 			processed = self.process_line(line)
 			if(not processed == None):
