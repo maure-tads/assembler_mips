@@ -11,15 +11,21 @@ int main(int argc, char* argv[]) {
         args.push_back(string(argv[i]));
     }
 
-    string input_file = args[1], command = "python ./src/python/main.py " + input_file + " > out.txt";
-    vector<string>::iterator run_cpp =  find(args.begin(), args.end(), "--cpp");
-    if(run_cpp != args.end()){
-        
-        system(string("g++ ./src/cpp/main.cpp -o main_assembler").c_str());
-        system(string("main_assembler <" + input_file + " > out").c_str());
-    } else {
+    string input_file = args[1], command, out_path = "out.txt";
+    
+    if(argc == 3)
+        out_path = args[2];
+
+    command = "python ./src/python/main.py " + input_file + " > " + out_path;
+    cout << command << endl;
+
+     
+    try {
         system(command.c_str());
+    } catch(exception &e) {
+        cout << "Exception " << e.what() << "\n";
     }
+        cout << "Código de máquina gerado com sucesso!\n";
 
     return 0;
 }
