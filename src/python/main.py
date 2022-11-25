@@ -143,6 +143,8 @@ class Assembler:
 				word = word.replace('d', symbol[0])
 		elif argc == 2:
 			if immediate:
+				if symbol[3].startswith('\'') and symbol[3].endswith('\''):
+					symbol[3] = ord(symbol[3][1:-1]) if symbol[3][1:-1] != "\\n" else 32
 				symbol = self.convert_parameters_values(symbol[1:4], 2, 5)
 				word = word.replace('s', symbol[1])
 				word = word.replace('t', symbol[0])
