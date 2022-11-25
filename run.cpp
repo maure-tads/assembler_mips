@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
         args.push_back(string(argv[i]));
     }
 
-    string input_file = args[1], command = "python ./src/python/main.py < " + input_file + " > out";
+    string input_file = args[1], command = "python ./src/python/main.py " + input_file + " > out.txt";
     vector<string>::iterator run_cpp =  find(args.begin(), args.end(), "--cpp");
     if(run_cpp != args.end()){
         
