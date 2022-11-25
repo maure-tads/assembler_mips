@@ -66,7 +66,6 @@ class Assembler:
 			if l[0].endswith(":"):
 				self.labels[l[0]] = l[-1]
 
-		print(self.labels)
 
 	def get_values_of(self, c):
 		return c['arguments'], c['word'], c['immediate']
@@ -124,16 +123,14 @@ class Assembler:
 		argc, word, immediate = self.get_values_of(command)
 		if '$'in word:
 			if argc == 0:
-				##TODO Calcular OFFSET
-				label = symbol[1] + ":"
-				addr = symbol[-1] 
+				addr = int(self.labels[symbol[1] + ":"]) >> 2 
 				word = word.replace('$', self.convert_number_to_binary(addr, 26))
 			if argc == 2:
-				addr = symbol[-1]
-				word = word.replace('$', self.convert_number_to_binary(addr, 16))
+				offset = (int(self.labels[symbol[3] + ":"]) - int(symbol[-1]))//4 - 1
+				word = word.replace('$', self.convert_number_to_binary(offset, 16))
 				symbol = self.convert_parameters_values(symbol[1:argc+1], 2, 5)
-				word = word.replace('s', symbol[1])
-				word = word.replace('t', symbol[0])
+				word = word.replace('s', symbol[0])
+				word = word.replace('t', symbol[1])
 		elif argc == 3:
 			symbol = self.convert_parameters_values(symbol[1:argc+1], 3, 5)
 			if 'a' in word:
