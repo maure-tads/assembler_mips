@@ -45,7 +45,28 @@ class Assembler:
 		
 	def load_program(self, program_path):
 		self.program = re.sub(' +', ' ', open(program_path, 'r').read().strip()).split('\n')
-		self.program = [line for line in self.program if line.strip() != '']
+		self.program = [line.strip() for line in self.program if line.strip() != '']
+		self.program = [line for line in self.program if not line.startswith(".")]
+		i = 0
+		j = 0
+		temp_program = []
+		while i < len(self.program):
+			addr = " " + str(j*4 + 0x00400000)
+			if self.program[i].endswith(":"):
+				temp_program.append(self.program[i] + " " + self.program[i + 1] + addr)
+				i = i + 1
+			else:
+				temp_program.append(self.program[i] + addr)
+			i = i + 1
+			j = j + 1
+		self.program = temp_program
+		self.labels = {}
+		for l in self.program:
+			l = l.split()
+			if l[0].endswith(":"):
+				self.labels[l[0]] = l[-1]
+
+		print(self.labels)
 
 	def get_values_of(self, c):
 		return c['arguments'], c['word'], c['immediate']
@@ -78,26 +99,12 @@ class Assembler:
 			print(res, end="")
 		print()
 
-
-
-	def get_label_address(self, label):
-		# self.indexer()
-		# index = 0
-		# for i in range(0, len(self.program)):
-		# 	if label in self.program[i]:
-		# 		index = i + 1
-
-		# print(index)
-		return
-
 	def process_line(self, line):
-		symbol = line.split(' '); 
+		symbol = line.split(' ')
 		if symbol[0] not in self.instructions_set:
-			label = re.findall(":$", symbol[0])
-			section = re.findall("^.", symbol[0])
-			if label:
-				self.get_label_address(symbol[0])
-			elif section:
+			if symbol[0].endswith(":"):
+				symbol = symbol[0:]
+			elif symbol[0].startswith("."):
 				##TODO PROCESSAR SECOES
 				#raise Exception('Seções ainda não são tratadas')
 				return
@@ -106,19 +113,28 @@ class Assembler:
 			else:
 				symbol = symbol[1:]
 		
-
-		
 		for i in range(0, len(symbol)):
 			symbol[i] = re.search('^-?[^, ]+', symbol[i]).group(0)
 			x = re.findall('^#', symbol[i])
 			if x:
 				symbol[:i]
 				break
-
 		command = self.instructions_set[symbol[0]]
 
 		argc, word, immediate = self.get_values_of(command)
-		if argc == 3:
+		if '$'in word:
+			if argc == 0:
+				##TODO Calcular OFFSET
+				label = symbol[1] + ":"
+				addr = symbol[-1] 
+				word = word.replace('$', self.convert_number_to_binary(addr, 26))
+			if argc == 2:
+				addr = symbol[-1]
+				word = word.replace('$', self.convert_number_to_binary(addr, 16))
+				symbol = self.convert_parameters_values(symbol[1:argc+1], 2, 5)
+				word = word.replace('s', symbol[1])
+				word = word.replace('t', symbol[0])
+		elif argc == 3:
 			symbol = self.convert_parameters_values(symbol[1:argc+1], 3, 5)
 			if 'a' in word:
 				word = word.replace('t', symbol[1])
@@ -143,6 +159,7 @@ class Assembler:
 	def parse(self, program_path):
 		self.load_program(program_path)
 		self.set_reg_names()
+		# self.indexer()
 		for line in self.program:
 			processed = self.process_line(line)
 			if(not processed == None):

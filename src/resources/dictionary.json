@@ -133,5 +133,20 @@
 		"word": "001110st*",
 		"arguments": 2,
 		"immediate": true
+	},
+	"j": {
+		"word": "000010$",
+		"arguments": 0,
+		"immediate": false
+	},
+	"beq": {
+		"word": "000100st$",
+		"arguments": 2,
+		"immediate": false
+	},
+	"bne": {
+		"word": "000101st$",
+		"arguments": 2,
+		"immediate": false
 	}
 }
